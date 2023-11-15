@@ -39,8 +39,7 @@ func crearCarpetaSiNoExiste(dir string) {
 func moverArchivoAlaCarpeta(file fs.FileInfo, format string, dir string) {
 	direccion := dir + "/" + format + "/"
 	crearCarpetaSiNoExiste(direccion)
-	fmt.Println(dir + file.Name())
-	fmt.Println(direccion + file.Name())
+	fmt.Printf("Organizando el archivo %s en el directorio %s", file.Name(), dir+format)
 	err := os.Rename(dir+file.Name(), direccion+file.Name())
 	if err != nil {
 		panic(err)
@@ -69,15 +68,11 @@ func main() {
 	}
 	fmt.Println("Organizando los elementos del directorio: ", direction)
 	files := archivosDelDIrectoriO(direction)
-	i := len(files)
-	fmt.Printf("Organizando %d archivos", i)
 	for _, fileInfo := range files {
 		f, err := formato(fileInfo)
-		i--
 		if err != nil {
 			continue
 		}
-		fmt.Printf("El archivo nro %d, %s fue organizado en %s\n", i, fileInfo.Name(), f)
 		moverArchivoAlaCarpeta(fileInfo, f, direction)
 	}
 }
