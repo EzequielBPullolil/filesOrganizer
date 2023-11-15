@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"errors"
 	"flag"
 	"fmt"
@@ -47,13 +48,24 @@ func moverArchivoAlaCarpeta(file fs.FileInfo, format string, dir string) {
 }
 
 func main() {
-	var direction string
-	directory := flag.String("dir", "directory", "Directory to organize")
+	direction, _ := os.Getwd()
+	directory := flag.String("dir", "", "Directory to organize")
 	flag.Parse()
-	if *directory == "." {
-		direction, _ = os.Getwd()
-	} else {
+	if *directory != "" {
 		direction = *directory
+	}
+	fmt.Printf("Esta seguro de organizar el directorio %s? (y/n)\n", string(direction))
+	reader := bufio.NewReader(os.Stdin)
+
+	input, err := reader.ReadString('\n')
+
+	if err != nil {
+		panic("Error al ingresar una respuesta ")
+	}
+	input = strings.TrimSpace(input)
+	if input != "y" {
+		fmt.Println("Organizacion de archivos cancelada")
+		return
 	}
 	fmt.Println("Organizando los elementos del directorio: ", direction)
 	files := archivosDelDIrectoriO(direction)
