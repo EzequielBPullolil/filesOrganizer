@@ -1,5 +1,6 @@
 # File Organizer
 **¡Simplifica la organización de tus archivos con este práctico organizador en Go!**
+
 Este proyecto en Go proporciona una herramienta de línea de comandos para organizar archivos en un directorio especificado según el formato de los archivos. Puedes especificar el directorio de destino utilizando la bandera `-dir`.
 
 ## Requisitos
